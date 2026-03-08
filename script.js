@@ -2,7 +2,18 @@ const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
 let width, height;
 let lines = [];
+const menu = document.querySelector('#mobile-menu');
+const menuLinks = document.querySelector('.nav-links');
 
+menu.addEventListener('click', function() {
+    menu.classList.toggle('is-active'); // สำหรับทำอนิเมชั่นปุ่ม (ถ้ามี)
+    menuLinks.classList.toggle('active'); // สั่งให้เมนูเลื่อนออกมา
+});
+
+// เสริม: กดที่ลิงก์แล้วให้เมนูปิดอัตโนมัติ (กรณีหน้ายาวๆ)
+document.querySelectorAll('.nav-links a').forEach(n => n.addEventListener('click', () => {
+    menuLinks.classList.remove('active');
+}));
 // กำหนดจำนวนเส้นวงจรบนหน้าจอ (ปรับเพิ่มลดได้)
 const numberOfLines = 35; 
 
@@ -124,4 +135,5 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) entry.target.classList.add('active');
     });
 }, { threshold: 0.1 });
+
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
