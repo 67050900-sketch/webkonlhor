@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academics | IoTE KMITL - หลักสูตรวิศวกรรมแห่งอนาคต</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Tenor+Sans&family=Prompt:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Academics Specific - Compact & Informative --- */
+        
+        .card-num {
+            font-family: 'Tenor Sans';
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Premium Pathway Section - Compact */
+        .premium-box {
+            background: #0a0a0a;
+            padding: 3rem 4rem;
+            border-radius: 2px;
+            border: 1px solid #1a1a1a;
+            margin: 4rem auto;
+            max-width: 1000px;
+            position: relative;
+        }
+        
+        .premium-box .label { color: #00d4ff !important; font-size: 0.6rem; letter-spacing: 3px; }
+        .premium-box h2 { color: #ffffff !important; margin: 1rem 0; font-size: 2.2rem; line-height: 1.2; }
+        .premium-box p { color: #888 !important; line-height: 1.6; font-size: 0.9rem; max-width: 450px; }
+
+        /* Button - Cyber Blue Action */
+        .premium-btn {
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            border: 1px solid #00d4ff;
+            color: #00d4ff !important;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            background: transparent;
+            text-transform: uppercase;
+        }
+
+        .premium-btn:hover { background: rgba(0, 212, 255, 0.05); box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); color: #fff !important; }
+        .premium-btn:active { transform: scale(0.95); background: #00d4ff; color: #000 !important; box-shadow: 0 0 30px rgba(0, 212, 255, 0.6); }
+
+        .cyber-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 3rem; align-items: center; }
+
+        /* Career & Roadmap Styles */
+        .career-list { list-style: none; margin-top: 2rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .career-list li { font-size: 0.85rem; color: var(--text); padding-left: 1.5rem; position: relative; }
+        .career-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+        .roadmap-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 4rem; }
+        .year-card { padding: 1.5rem; border: 1px solid #eee; background: #fff; }
+        .year-card h4 { font-family: 'Tenor Sans'; font-size: 0.75rem; color: var(--accent); margin-bottom: 1rem; }
+        .year-card ul { list-style: none; font-size: 0.75rem; color: var(--dim-text); line-height: 1.6; }
+
+        @media (max-width: 992px) {
+            .roadmap-container { grid-template-columns: repeat(2, 1fr); }
+            .cyber-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+    <div class="glow-orb"></div>
+
+    <nav>
+        <div class="logo">IoTE <span>KMITL</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT IoTE</a></li>
+            <li><a href="academics.html" class="active">ACADEMICS</a></li>
+            <li><a href="faculty.html">FACULTY</a></li>
+            <li><a href="performance.html">PERFORMANCE</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+            <li>
+    <a href="play.html" class="magic-portal" title="Intelligence Hub">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+        </svg>
+    </a>
+</li>
+        </ul>
+    </nav>
+
+    <header class="container" style="padding-top: 12rem; padding-bottom: 4rem;">
+        <span class="label reveal">CURRICULUM</span>
+        <h1 class="reveal" style="font-size: clamp(3rem, 8vw, 6rem);">PROGRAMS <span>& DEGREES.</span></h1>
+    </header>
+
+    <section class="container">
+        <div class="section-grid align-center">
+            <div class="reveal">
+                <span class="label">UNDERGRADUATE</span>
+                <h2>เส้นทางการเรียนรู้</h2>
+                <p style="margin: 1.5rem 0; color: var(--dim-text);">เราออกแบบหลักสูตรให้ครอบคลุมตั้งแต่พื้นฐานวิศวกรรมไปจนถึงเทคโนโลยีขั้นสูงระดับอุตสาหกรรม</p>
+                
+                <div class="info-card reveal" style="border-left: 1px solid var(--accent); padding-left: 1.5rem;">
+                    <div class="card-num">B.ENG IoTE</div>
+                    <h3>วิศวกรรมไอโอทีและสารสนเทศ</h3>
+                    <p style="font-size: 0.85rem; color: var(--dim-text);">มุ่งเน้นความเชี่ยวชาญด้าน Smart Systems, AI และเครือข่ายยุคใหม่</p>
+                </div>
+
+                <ul class="career-list reveal">
+                    <li>IoT Solutions Architect</li>
+                    <li>Embedded System Developer</li>
+                    <li>Network Security Engineer</li>
+                    <li>Full-stack IoT Developer</li>
+                    <li>Data Engineer / AI Specialist</li>
+                    <li>Smart Factory Engineer</li>
+                </ul>
+            </div>
+            <div class="reveal image-placeholder" style="aspect-ratio: 16/10;">
+                <img src="4.jpg" alt="" onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <div class="reveal" style="margin-top: 8rem;">
+            <span class="label">LEARNING ROADMAP</span>
+            <h2>แผนการเรียน 4 ปี</h2>
+            <div class="roadmap-container">
+                <div class="year-card">
+                    <h4>YEAR 01</h4>
+                    <ul>
+                        <li>Computer Programming</li>
+                        <li>Calculus & Physics</li>
+                        <li>Electric Circuit Analysis</li>
+                        <li>Digital Logic Design</li>
+                    </ul>
+                </div>
+                <div class="year-card">
+                    <h4>YEAR 02</h4>
+                    <ul>
+                        <li>Data Structures & Algorithms</li>
+                        <li>Microcontrollers & Interfacing</li>
+                        <li>Signals and Systems</li>
+                        <li>IoT Communications</li>
+                    </ul>
+                </div>
+                <div class="year-card">
+                    <h4>YEAR 03</h4>    
+                    <ul>
+                        <li>Operating Systems</li>
+                        <li>Cloud Computing</li>
+                        <li>Machine Learning</li>
+                        <li>IoT System Design</li>
+                    </ul>
+                </div>
+                <div class="year-card">
+                    <h4>YEAR 04</h4>
+                    <ul>
+                        <li>IoT Security</li>
+                        <li>Senior Capstone Project</li>
+                        <li>Cooperative Education</li>
+                        <li>Entrepreneurship</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="premium-box reveal" style="max-width: 1100px;">
+            <div class="cyber-grid" style="grid-template-columns: 1fr; gap: 2rem;"> <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3.5rem; align-items: center;">
+                    <div>
+                        <span class="label">PREMIUM PATHWAY</span>
+                        <h2 style="font-size: 2.8rem;">Dual Degree:<br><span style="color: #00d4ff;">IoT + Physics</span></h2>
+                        <p style="max-width: 100%;">บูรณาการความรู้ฟิสิกส์วัสดุขั้นสูงเข้ากับการออกแบบระบบไอโอที เพื่อสร้างนวัตกรรมที่ล้ำหน้ากว่าใครในอุตสาหกรรม Semiconductor และ Sensor</p>
+                        <a href="#" class="premium-btn">Download Brochure</a>
+                    </div>
+                    
+                    <div style="position: relative; background: #111; aspect-ratio: 16/10; border: 1px solid #222; overflow: hidden; border-radius: 2px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+                        <img src="12.jpg" alt="Advanced Research Lab" 
+                             style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" 
+                             onerror="this.parentElement.innerHTML='<span style=\'color:#333; font-size:0.6rem;\'>[ IMAGE NOT FOUND ]</span>';">
+                        
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, rgba(0,212,255,0.15), transparent); pointer-events: none;"></div>
+                        <div style="position: absolute; bottom: 10px; right: 10px; width: 40px; height: 1px; background: #00d4ff;"></div>
+                        <div style="position: absolute; bottom: 10px; right: 10px; width: 1px; height: 40px; background: #00d4ff;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reveal" style="text-align: center; padding: 6rem 0; border-top: 1px solid #eee;">
+            <span class="label">READY TO JOIN?</span>
+            <h2 style="margin-bottom: 2rem;">เริ่มต้นอนาคตของคุณที่นี่</h2>
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="admission.html" class="nav-btn" style="text-decoration: none; background: var(--text); color: #fff !important; border: none;">ADMISSION 2026</a>
+                <a href="contact.html" class="nav-btn" style="text-decoration: none;">ENQUIRE NOW</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">IoTE <span>KMITL</span></div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/IOTE.KMITL?mibextid=wwXIfr&rdid=25CPRn6FU3PUXONX&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Gx8LU5F8J%2F%3Fmibextid%3DwwXIfr#"target="_blank"><img src="Facebook.png" alt="Facebook" class="social-icon"></a>
+    <a href="https://www.instagram.com/kmitl.iote.official?igsh=MTRmMmxjOWxud3BwNQ%3D%3D"target="_blank"><img src="instagram.png" alt="LinkedIn" class="social-icon"></a>
+    <a href="https://www.youtube.com/@iote_kmitl"target="_blank"><img src="Youtube.png" alt="YouTube" class="social-icon" style="width: 60px;"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IoT SYSTEM AND INFORMATION ENGINEERING, KMITL.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | IoTE KMITL - วิสัยทัศน์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Tenor+Sans&family=Prompt:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* สไตล์เพิ่มเติมสำหรับหน้า About - Minimal Edition */
+        .lead { font-size: 1.5rem; color: var(--accent); font-family: 'Tenor Sans', 'Prompt'; margin-bottom: 2rem; line-height: 1.4; }
+        .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .pillar-item { border-left: 2px solid var(--accent); padding-left: 1.5rem; }
+        .pillar-item h4 { font-family: 'Tenor Sans'; letter-spacing: 1px; margin-bottom: 0.5rem; color: var(--text); }
+        .impact-stats { background: #f9f9f9; padding: 5rem 10%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 3rem; margin: 8rem 0; }
+        .impact-item h2 { font-family: 'Tenor Sans'; font-size: 3.5rem; color: var(--accent); }
+        .impact-item p { font-size: 0.75rem; letter-spacing: 2px; color: var(--dim-text); text-transform: uppercase; }
+        
+        /* สไตล์กรอบรูปเดียวของหน้า - แก้ไขให้รองรับรูปแนวนอนได้สวยงามขึ้น */
+        .compact-img-frame {
+            max-width: 550px; 
+            margin-left: auto;
+            width: 100%;
+        }
+
+        /* ปรับ Layout ส่วนเป้าหมายให้เป็นแบบข้อความล้วน */
+        .goals-text-only {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* สไตล์สำหรับ Magic Portal ในเมนู */
+        .magic-portal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        .magic-portal:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .compact-img-frame {
+                max-width: 100%;
+                margin-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+    <div class="glow-orb"></div>
+
+    <nav>
+        <div class="logo">IoTE <span>KMITL</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html" class="active">ABOUT IoTE</a></li>
+            <li><a href="academics.html">ACADEMICS</a></li>
+            <li><a href="faculty.html">FACULTY</a></li>
+            <li><a href="performance.html">PERFORMANCE</a></li>
+            <li><a href="contact.html">CONTACT</a></li> 
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+            <li>
+    <a href="play.html" class="magic-portal" title="Intelligence Hub">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+        </svg>
+    </a>
+</li>
+        </ul>
+    </nav>
+
+    <header class="container" style="padding-top: 15rem; padding-bottom: 5rem;">
+        <span class="label reveal">OUR STORY</span>
+        <h1 class="reveal" style="font-size: clamp(3rem, 10vw, 8rem);">ABOUT <br><span>IOTE</span></h1>
+    </header>
+
+    <section class="container">
+        <div class="section-grid align-center">
+            <div class="reveal">
+                <span class="label">HISTORY</span>
+                <h2>ความเป็นมา</h2>
+                <p class="lead">"เราไม่ได้แค่สร้างวิศวกร แต่เราสร้างผู้นำทางนวัตกรรมที่เปลี่ยนโลกด้วยข้อมูล"</p>
+                <p>ภาควิชาวิศวกรรมระบบไอโอทีและสารสนเทศ สจล. ก่อตั้งขึ้นจากการบูรณาการความเชี่ยวชาญด้านอิเล็กทรอนิกส์ การสื่อสาร และวิทยาการคอมพิวเตอร์ เพื่อรองรับการปฏิวัติอุตสาหกรรมยุคดิจิทัล เรามุ่งเน้นการสร้างองค์ความรู้ที่ทำให้ "ทุกสิ่ง" สามารถสื่อสารและตัดสินใจได้อย่างอัจฉริยะ</p>
+                <p style="margin-top: 1rem;">จากจุดเริ่มต้นในฐานะหลักสูตรบุกเบิก วันนี้เราก้าวสู่การเป็นศูนย์กลางด้าน IoT Excellence ของภูมิภาค โดยผลิตบัณฑิตที่มีทักษะตรงตามความต้องการของบริษัทเทคโนโลยีระดับโลก</p>
+            </div>
+            <div class="reveal compact-img-frame">
+                <div class="image-placeholder" style="aspect-ratio: 16/9; box-shadow: 10px 10px 40px rgba(0,0,0,0.03); border-radius: 4px; overflow: hidden;">
+                    <span>[ บรรยากาศภาควิชา / ตึก E-12 ]</span>
+                    <img src="8.jpg" alt="IoTE KMITL Building" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+
+        <div class="reveal" style="margin-top: 10rem;">
+            <span class="label">ACADEMIC PILLARS</span>
+            <h2>3 หลักสำคัญของการเรียนรู้</h2>
+            <div class="pillar-grid">
+                <div class="pillar-item">
+                    <h4>HARDWARE INFRASTRUCTURE</h4>
+                    <p style="font-size: 0.9rem; color: var(--dim-text);">เชี่ยวชาญด้านระบบฝังตัว (Embedded Systems), เซนเซอร์ และการออกแบบวงจรอิเล็กทรอนิกส์สำหรับอุปกรณ์ IoT</p>
+                </div>
+                <div class="pillar-item">
+                    <h4>CONNECTIVITY & NETWORK</h4>
+                    <p style="font-size: 0.9rem; color: var(--dim-text);">การสื่อสารไร้สายความเร็วสูง 5G/6G, โปรโตคอลโครงข่าย และความปลอดภัยของข้อมูลบนระบบเครือข่าย</p>
+                </div>
+                <div class="pillar-item">
+                    <h4>DATA INTELLIGENCE</h4>
+                    <p style="font-size: 0.9rem; color: var(--dim-text);">การประมวลผลบน Cloud และ Edge Computing, การวิเคราะห์ Big Data และการประยุกต์ใช้ AI/ML</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="impact-stats reveal">
+        <div class="impact-item">
+            <h2>15+</h2>
+            <p>Industry Partners</p>
+        </div>
+        <div class="impact-item">
+            <h2>100%</h2>
+            <p>Innovation-Led Projects</p>
+        </div>
+        <div class="impact-item">
+            <h2>TOP 5</h2>
+            <p>Engineering Ranking</p>
+        </div>
+        <div class="impact-item">
+            <h2>2020</h2>
+            <p>Established Year</p>
+        </div>
+    </div>
+
+    <section class="container">
+        <div class="reveal" style="text-align: center;">
+            <span class="label">CORE VALUES</span>
+            <h2>ค่านิยม</h2>
+        </div>
+        <div class="grid-3 reveal" style="margin-top: 4rem; margin-bottom: 8rem;">
+            <div class="info-card" style="padding: 3rem 2rem;">
+                <h3>Innovation</h3>
+                <p>การแสวงหาเทคโนโลยีใหม่ๆ ไม่ว่าจะเป็น AI, Blockchain หรือ 6G เพื่อสร้างโซลูชันที่ยั่งยืนและล้ำสมัย</p>
+            </div>
+            <div class="info-card" style="padding: 3rem 2rem;">
+                <h3>Integrity</h3>
+                <p>ความซื่อสัตย์ในวิชาชีพวิศวกร มีจริยธรรมในการจัดการข้อมูล และมุ่งมั่นแก้ปัญหาสังคม</p>
+            </div>
+            <div class="info-card" style="padding: 3rem 2rem;">
+                <h3>Intelligence</h3>
+                <p>การเปลี่ยนข้อมูล (Data) ให้กลายเป็นปัญญา (Intelligence) เพื่อการตัดสินใจที่แม่นยำในทุกบริบท</p>
+            </div>
+        </div>
+
+        <div class="reveal goals-text-only" style="margin-top: 5rem;">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <span class="label">OUR GOAL</span>
+                <h2>เป้าหมาย</h2>
+            </div>
+            
+            <div class="item-card" style="border-top: 1px solid var(--border); padding: 2.5rem 0;">
+                <h3 style="font-family: 'Tenor Sans'; margin-bottom: 1rem;">Empowering Industry 4.0</h3>
+                <p>มุ่งเน้นความร่วมมือกับภาคอุตสาหกรรม เพื่อเปลี่ยนผ่านโรงงานแบบดั้งเดิมสู่ Smart Factory ด้วยระบบ IIoT และ Automation</p>
+            </div>
+            
+            <div class="item-card" style="border-top: 1px solid var(--border); padding: 2.5rem 0;">
+                <h3 style="font-family: 'Tenor Sans'; margin-bottom: 1rem;">Smart City Ecosystem</h3>
+                <p>สร้างสรรค์นวัตกรรมเพื่อการอยู่อาศัยที่ชาญฉลาด ตั้งแต่ระบบจัดการพลังงานไปจนถึงโครงสร้างพื้นฐานอัจฉริยะ</p>
+            </div>
+
+            <div class="item-card" style="border-top: 1px solid var(--border); padding: 2.5rem 0;">
+                <h3 style="font-family: 'Tenor Sans'; margin-bottom: 1rem;">Global Research Excellence</h3>
+                <p>ยกระดับงานวิจัยสู่ระดับสากล ผ่านเครือข่ายความร่วมมือกับมหาวิทยาลัยและสถาบันวิจัยชั้นนำทั่วโลก</p>
+            </div>
+        </div>
+
+        <div class="section-grid reveal" style="margin-top: 12rem; border-top: 1px solid var(--border); padding-top: 5rem; padding-bottom: 5rem;">
+            <div>
+                <span class="label">WANT TO KNOW MORE?</span>
+                <h2>มีข้อสงสัยเพิ่มเติม<br>เกี่ยวกับเรา?</h2>
+            </div>
+            <div>
+                <p style="margin-bottom: 3rem; color: var(--dim-text);">เรายินดีต้อนรับทุกคนที่สนใจเยี่ยมชมภาควิชา หรือต้องการสอบถามข้อมูลหลักสูตรเชิงลึก สามารถนัดหมายเพื่อเข้ามาพูดคุยกับคณาจารย์ได้โดยตรง</p>
+                <div style="display: flex; gap: 3rem; flex-wrap: wrap; margin-bottom: 3rem;">
+                    <div>
+                        <span class="label" style="font-size: 0.6rem;">DIRECT EMAIL</span>
+                        <p style="color: var(--text); font-size: 1.1rem; font-weight: 400;">iote@kmitl.ac.th</p>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-btn" style="padding: 1.2rem 3rem; display: inline-block; text-decoration: none;">VIEW ALL CONTACT INFO</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">IoTE <span>KMITL</span></div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/IOTE.KMITL?mibextid=wwXIfr&rdid=25CPRn6FU3PUXONX&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Gx8LU5F8J%2F%3Fmibextid%3DwwXIfr#" target="_blank"><img src="Facebook.png" alt="Facebook" class="social-icon"></a>
+                <a href="https://www.instagram.com/kmitl.iote.official?igsh=MTRmMmxjOWxud3BwNQ%3D%3D" target="_blank"><img src="instagram.png" alt="LinkedIn" class="social-icon"></a>
+                <a href="https://www.youtube.com/@iote_kmitl" target="_blank"><img src="Youtube.png" alt="YouTube" class="social-icon" style="width: 60px;"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IoT SYSTEM AND INFORMATION ENGINEERING, KMITL.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

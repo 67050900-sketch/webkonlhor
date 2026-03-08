@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission | IoTE KMITL - รายละเอียดหลักสูตรและการรับสมัคร</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Tenor+Sans&family=Prompt:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* สไตล์เพิ่มเติมสำหรับหน้า Admission แบบเน้นข้อมูล */
+        .timeline { margin-top: 4rem; position: relative; border-left: 1px solid var(--border); padding-left: 2rem; }
+        .timeline-item { margin-bottom: 4rem; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: calc(-2rem - 5px); top: 5px; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; }
+        .timeline-date { font-family: 'Tenor Sans'; color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 0.5rem; display: block; }
+        .timeline-content h3 { font-family: 'Tenor Sans', 'Prompt'; font-weight: 600; font-size: 1.8rem; margin-bottom: 1rem; color: var(--text); }
+        .admission-status { display: inline-block; padding: 0.3rem 1rem; border: 1px solid var(--border); color: var(--dim-text); font-size: 0.6rem; letter-spacing: 1px; margin-top: 1rem; text-transform: uppercase; }
+        .status-open { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+        
+        .admission-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .stat-box { background: rgba(0,0,0,0.02); padding: 1.5rem; border: 1px solid var(--border); }
+        .stat-box h4 { font-size: 0.65rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .stat-box p { font-size: 1.4rem; font-family: 'Tenor Sans'; color: var(--text); }
+
+        .info-block { margin-top: 5rem; padding: 4rem 0; border-top: 1px solid var(--border); }
+        .grid-detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-top: 3rem; }
+        
+        .pillar-card h3 { font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text); border-left: 3px solid var(--accent); padding-left: 1rem; }
+        .pillar-card ul { list-style: none; }
+        .pillar-card ul li { font-size: 0.9rem; color: var(--dim-text); margin-bottom: 0.8rem; display: flex; align-items: flex-start; }
+        .pillar-card ul li::before { content: '→'; margin-right: 0.8rem; color: var(--accent); }
+
+        .req-list { list-style: none; margin-top: 2rem; }
+        .req-list li { padding: 1.2rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text); }
+        .req-list li span { color: var(--accent); font-weight: 600; text-align: right; }
+
+        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .faq-item { padding: 2.5rem; background: #fff; border: 1px solid var(--border); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .faq-item:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .faq-item h4 { color: var(--accent); margin-bottom: 1.2rem; font-size: 1.1rem; font-weight: 600; }
+        .faq-item p { font-size: 0.9rem; color: var(--dim-text); line-height: 1.7; }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+
+    <nav>
+        <div class="logo">IoTE <span>KMITL</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT IoTE</a></li>
+            <li><a href="academics.html">ACADEMICS</a></li>
+            <li><a href="faculty.html">FACULTY</a></li>
+            <li><a href="performance.html">PERFORMANCE</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="admission.html" class="active nav-btn">ADMISSION</a></li>
+             <li>
+    <a href="play.html" class="magic-portal" title="Intelligence Hub">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+        </svg>
+    </a>
+</li>
+        </ul>
+    </nav>
+
+    <header class="container" style="padding-top: 15rem; padding-bottom: 8rem;">
+        <span class="label reveal">ADMISSION GUIDE</span>
+        <h1 class="reveal" style="font-size: clamp(3rem, 10vw, 7rem);">ACADEMIC <span>INTAKE.</span></h1>
+        <p class="reveal" style="max-width: 600px; margin-top: 2rem; color: var(--dim-text);">เจาะลึกข้อมูลการเข้าศึกษา หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาวิศวกรรมระบบไอโอทีและสารสนเทศ มุ่งเน้นการสร้างนวัตกรเพื่อขับเคลื่อนอุตสาหกรรมดิจิทัล</p>
+    </header>
+
+    <section class="container">
+        <div class="section-grid">
+            <div class="reveal">
+                <span class="label">PROGRAM OVERVIEW</span>
+                <h2>รายละเอียดเบื้องต้น</h2>
+                <div class="admission-stats">
+                    <div class="stat-box">
+                        <h4>Annual Intake</h4>
+                        <p>60 Students</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Tuition Fee</h4>
+                        <p>25,000 THB</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Duration</h4>
+                        <p>4 Years</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Degree</h4>
+                        <p>B.Eng. (IoTE)</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 4rem; padding: 2rem; background: var(--accent); color: #fff;">
+                    <h4 style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 1rem;">SCHOLARSHIPS</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">มีทุนสนับสนุนการศึกษา ทั้งทุนเรียนดี (Full/Half Grant) และทุนช่วยเหลือการศึกษาสำหรับนักศึกษาที่ขาดแคลนทุนทรัพย์</p>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <span class="label">ADMISSION ROUNDS</span>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <span class="timeline-date">DEC - JAN</span>
+                        <div class="timeline-content">
+                            <h3>Round 1: Portfolio</h3>
+                            <p>พิจารณาจากแฟ้มสะสมผลงาน ความสามารถพิเศษทางด้านเทคโนโลยี หรือโครงงานวิทยาศาสตร์</p>
+                            <span class="admission-status">Closed</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <span class="timeline-date">FEB - MAR</span>
+                        <div class="timeline-content">
+                            <h3>Round 2: Quota</h3>
+                            <p>สำหรับนักเรียนเรียนดีในเขตพื้นที่ หรือโรงเรียนในเครือข่ายความร่วมมือทางวิชาการ</p>
+                            <span class="admission-status status-open">Open for Application</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <span class="timeline-date">MAY</span>
+                        <div class="timeline-content">
+                            <h3>Round 3: Admission</h3>
+                            <p>การคัดเลือกผ่านระบบกลางโดยใช้คะแนน TGAT, TPAT3 และ A-Level ตามสัดส่วนที่กำหนด</p>
+                            <span class="admission-status">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-block reveal">
+            <span class="label">CURRICULUM PILLARS</span>
+            <h2>โครงสร้างการเรียนรู้</h2>
+            <div class="grid-detail">
+                <div class="pillar-card">
+                    <h3>Embedded Systems</h3>
+                    <ul>
+                        <li>Microcontroller Architecture</li>
+                        <li>Real-time Operating Systems</li>
+                        <li>Digital Circuit Design</li>
+                        <li>Hardware-Software Co-design</li>
+                    </ul>
+                </div>
+                <div class="pillar-card">
+                    <h3>Data & Network</h3>
+                    <ul>
+                        <li>IoT Protocols (MQTT, LoRa)</li>
+                        <li>Cloud Computing Service</li>
+                        <li>Cyber Security in IoT</li>
+                        <li>Big Data Analytics</li>
+                    </ul>
+                </div>
+                <div class="pillar-card">
+                    <h3>Smart Applications</h3>
+                    <ul>
+                        <li>AI & Machine Learning</li>
+                        <li>Mobile App Development</li>
+                        <li>Web Service Technology</li>
+                        <li>Industrial Automation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-grid reveal" style="margin-top: 5rem;">
+            <div>
+                <span class="label">CRITERIA</span>
+                <h2>เกณฑ์การคัดเลือก</h2>
+                <p>สัดส่วนคะแนนที่ใช้ในการพิจารณา (อ้างอิงปีการศึกษาล่าสุด)</p>
+            </div>
+            <div>
+                <ul class="req-list">
+                    <li>GPAX (เกรดเฉลี่ยสะสม 5-6 เทอม) <span>ขั้นต่ำ 2.75</span></li>
+                    <li>TGAT (ความถนัดทั่วไป) <span>ค่าน้ำหนัก 20%</span></li>
+                    <li>TPAT 3 (ความถนัดทางวิศวกรรม) <span>ค่าน้ำหนัก 30%</span></li>
+                    <li>A-Level (คณิต 1, ฟิสิกส์, อังกฤษ) <span>ค่าน้ำหนัก 50%</span></li>
+                    <li>เอกสารเพิ่มเติม (เฉพาะรอบ Portfolio) <span>Certificate / Project</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="reveal" style="margin-top: 10rem;">
+            <span class="label" style="text-align: center; display: block;">FAQ</span>
+            <h2 style="text-align: center;">คำถามที่พบบ่อย</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>วิศวกรรมไอโอที ต่างจากวิศวกรรมคอมพิวเตอร์อย่างไร?</h4>
+                    <p>ไอโอทีจะเน้นความเชื่อมโยงระหว่าง "ฮาร์ดแวร์" และ "ซอฟต์แวร์" ผ่านระบบโครงข่าย โดยเราจะเจาะลึกเรื่องระบบเซนเซอร์ การสื่อสารไร้สาย และการนำข้อมูลมาประยุกต์ใช้กับอุปกรณ์ในโลกจริงมากกว่าคอมพิวเตอร์ทั่วไป</p>
+                </div>
+                <div class="faq-item">
+                    <h4>ต้องเตรียมตัวอย่างไรก่อนสอบสัมภาษณ์?</h4>
+                    <p>รอบ Portfolio ควรแสดงให้เห็นถึง "Passion" และ "Logic" ในการแก้ปัญหา หากมีโครงงานที่เคยทำ (แม้ไม่เกี่ยวกับไอโอทีโดยตรง) ให้นำมาเล่าถึงกระบวนการคิดและวิธีแก้ปัญหาที่เกิดขึ้น</p>
+                </div>
+                <div class="faq-item">
+                    <h4>จบไปแล้ว โอกาสในการหางานเป็นอย่างไร?</h4>
+                    <p>ความต้องการวิศวกรด้านนี้สูงมากในอุตสาหกรรม Smart Factory, Smart City และบริษัท Tech Startup นักศึกษาของเรามีอัตราการได้งานทำสูงถึง 98% ภายใน 6 เดือนหลังเรียนจบ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-grid reveal" style="margin-top: 10rem; border-top: 1px solid var(--border); padding-top: 8rem; padding-bottom: 8rem;">
+            <div>
+                <span class="label">BECOME AN INNOVATOR</span>
+                <h2>คุณพร้อมที่จะสร้าง<br>นวัตกรรมเปลี่ยนโลกหรือยัง?</h2>
+            </div>
+            <div>
+                <p style="margin-bottom: 3rem; color: var(--dim-text);">เปิดรับสมัครรอบโควตาแล้ววันนี้ ตรวจสอบระเบียบการสมัครอย่างเป็นทางการได้ที่เว็บไซต์สำนักทะเบียนและประมวลผล</p>
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                    <a href="https://reg.kmitl.ac.th" target="_blank" class="nav-btn" style="padding: 1.2rem 4rem; display: inline-block; text-decoration: none; background: #000; color: #fff !important; border: none;">APPLY NOW</a>
+                    <a href="contact.html" class="nav-btn" style="padding: 1.2rem 3rem; display: inline-block; text-decoration: none;">DOWNLOAD SYLLABUS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">IoTE <span>KMITL</span></div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/IOTE.KMITL?mibextid=wwXIfr&rdid=25CPRn6FU3PUXONX&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Gx8LU5F8J%2F%3Fmibextid%3DwwXIfr#"target="_blank"><img src="Facebook.png" alt="Facebook" class="social-icon"></a>
+    <a href="https://www.instagram.com/kmitl.iote.official?igsh=MTRmMmxjOWxud3BwNQ%3D%3D"target="_blank"><img src="instagram.png" alt="LinkedIn" class="social-icon"></a>
+    <a href="https://www.youtube.com/@iote_kmitl"target="_blank"><img src="Youtube.png" alt="YouTube" class="social-icon" style="width: 60px;"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>@ 2026 IoT SYSTEM AND INFORMATION ENGINEERING, KMITL.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

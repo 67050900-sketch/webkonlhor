@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoTE Oracle | คำพยากรณ์แห่งความสำเร็จ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Tenor+Sans&family=Prompt:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --accent: #ff6b00; 
+            --dim-text: #666;
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', 'Prompt', sans-serif; overflow-x: hidden; }
+        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: #ffffff; }
+
+        /* --- Navbar --- */
+        nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, 0.85); }
+        .logo { font-family: 'Tenor Sans', sans-serif; font-size: 1.4rem; font-weight: bold; letter-spacing: 3px; color: #000; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dim-text); font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; }
+        .nav-btn { border: 1.5px solid var(--accent); padding: 0.5rem 1.5rem; border-radius: 50px; color: var(--accent) !important; transition: 0.3s; position: relative; overflow: hidden; }
+        .nav-btn::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: rgba(255,255,255,0.2); transform: rotate(45deg); transition: 0.5s; }
+        .nav-btn:hover::after { left: 120%; }
+        .nav-btn:hover { background: var(--accent); color: #fff !important; }
+
+        /* --- Lab Interface --- */
+        .lab-container { padding-top: 140px; display: flex; flex-direction: column; align-items: center; text-align: center; min-height: 100vh; padding-bottom: 50px; }
+        .label { color: var(--accent); font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; }
+        h1 { font-family: 'Tenor Sans', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; }
+
+        /* Drawing Area */
+        .breadboard-path {
+            display: flex; gap: 20px; background: #fdfdfd; padding: 50px;
+            border-radius: 32px; border: 1px solid var(--border);
+            width: 90%; max-width: 800px; justify-content: center; align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+            margin-bottom: 2rem; position: relative;
+        }
+
+        .slot {
+            width: 140px; height: 180px; border: 2px dashed #ccc;
+            border-radius: 16px; background: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-size: 3.5rem; transition: 0.4s; position: relative;
+        }
+        .slot small { font-size: 0.6rem; color: #bbb; position: absolute; bottom: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+        .slot.active { border-style: solid; border-color: var(--accent); box-shadow: 0 10px 25px rgba(255,107,0,0.15); transform: scale(1.05); animation: glowBlink 1.5s infinite alternate; }
+        @keyframes glowBlink { 
+            0% { box-shadow: 0 10px 25px rgba(255,107,0,0.15); } 
+            100% { box-shadow: 0 10px 35px rgba(255,107,0,0.3); } 
+        }
+
+        /* Result Card */
+        #result-display {
+            max-width: 600px; width: 90%; background: #fff; border: 1px solid var(--border);
+            padding: 2.5rem; border-radius: 20px; margin-top: 2rem; display: none;
+            animation: revealCard 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes revealCard { 
+            0% { opacity: 0; transform: translateY(30px) scale(0.9) rotateX(-15deg); } 
+            100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); } 
+        }
+        
+        .res-title { color: var(--accent); font-weight: 800; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 1rem; }
+        .res-text { font-size: 1.5rem; font-family: 'Tenor Sans', 'Prompt'; line-height: 1.4; margin-bottom: 1.5rem; }
+        .res-desc { color: var(--dim-text); font-size: 0.9rem; line-height: 1.8; border-top: 1px solid #eee; padding-top: 1.5rem; }
+
+        /* Inventory (Grid of 20 Cards) */
+        .inventory-wrapper { width: 90%; max-width: 1000px; margin-top: 2rem; }
+        .inventory-title { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; color: #aaa; margin-bottom: 1.5rem; }
+        
+        .inventory {
+            display: grid; grid-template-columns: repeat(10, 1fr); gap: 1rem;
+            background: #fff; padding: 2rem; border-radius: 24px;
+            border: 1px solid var(--border); box-shadow: 0 15px 50px rgba(0,0,0,0.05);
+        }
+        
+        .tool { 
+            display: flex; flex-direction: column; align-items: center; cursor: grab; 
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); padding: 10px; border-radius: 8px;
+        }
+        .tool:hover { transform: translateY(-8px) scale(1.1); background: #fffaf7; animation: pulse 1s infinite alternate; }
+        @keyframes pulse {
+            0% { transform: translateY(-8px) scale(1.1); }
+            100% { transform: translateY(-10px) scale(1.15); }
+        }
+        .tool span { font-size: 2rem; }
+
+        @media (max-width: 800px) {
+            .inventory { grid-template-columns: repeat(5, 1fr); }
+            .breadboard-path { flex-direction: column; padding: 30px; }
+        }
+
+        #status-msg { margin-top: 2rem; font-weight: 600; color: var(--dim-text); letter-spacing: 1px; font-size: 0.85rem; }
+        .btn-reset { margin-top: 20px; background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; position: relative; overflow: hidden; }
+        .btn-reset::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: rgba(255,107,0,0.1); transform: rotate(45deg); transition: 0.5s; }
+        .btn-reset:hover::after { left: 120%; }
+        .btn-reset:hover { color: #ff8833; }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+
+    <nav>
+        <a href="#" class="logo">IoTE <span>KMITL</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+        </ul>
+    </nav>
+
+    <main class="lab-container">
+        <span class="label">The Oracle Connection</span>
+        <h1>DESTINY <span>DECODER</span></h1>
+
+        <div class="breadboard-path">
+            <div class="slot" id="slot-1" ondragover="allowDrop(event)" ondrop="drop(event, 1)">
+                <small>Energy Input 1</small>
+            </div>
+            <div style="font-size: 2rem; color: #eee; animation: pulse 2s infinite alternate;">+</div>
+            <div class="slot" id="slot-2" ondragover="allowDrop(event)" ondrop="drop(event, 2)">
+                <small>Energy Input 2</small>
+            </div>
+        </div>
+
+        <div id="status-msg">ลากการ์ดพลังงาน 2 ใบเพื่อประมวลผลคำอวยพร</div>
+
+        <div id="result-display">
+            <div class="res-title">SYSTEM DECODED RESULT</div>
+            <div class="res-text" id="res-text"></div>
+            <div class="res-desc" id="res-desc"></div>
+            <button class="btn-reset" onclick="location.reload()">🔄 ANALYZE AGAIN</button>
+        </div>
+
+        <div class="inventory-wrapper">
+            <div class="inventory-title">AVAILABLE ENERGY CARDS (20)</div>
+            <div class="inventory" id="card-inventory">
+                </div>
+        </div>
+    </main>
+
+    <script>
+        // Starfield
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        class Star {
+            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 1.5; this.speed = Math.random() * 0.3; }
+            update() { this.y += this.speed; if (this.y > canvas.height) this.y = 0; }
+            draw() { ctx.fillStyle = '#ff6b0022'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+        }
+        function initStars() { stars = []; for (let i = 0; i < 80; i++) stars.push(new Star()); }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { resize(); initStars(); });
+        resize(); initStars(); animate();
+
+        // 20 Cards Data
+        const cardIcons = ['🔥','🧠','✨','💎','🍀','🔋','🚀','📡','🛠️','🧩','🌈','⚡','🔮','📚','🎯','🛡️','🧬','🏮','🗝️','🌙'];
+        const inventory = document.getElementById('card-inventory');
+        
+        cardIcons.forEach((icon, index) => {
+            const div = document.createElement('div');
+            div.className = 'tool';
+            div.draggable = true;
+            div.innerHTML = `<span>${icon}</span>`;
+            div.ondragstart = (ev) => {
+                ev.dataTransfer.setData("icon", icon);
+                ev.dataTransfer.setData("id", index);
+            };
+            inventory.appendChild(div);
+        });
+
+        // Blessing Data (20 items - Exam & Encouragement Edition)
+        const blessings = [
+            { t: "คะแนนสอบจะพุ่งทะยาน เหมือนสัญญาณ 6G ที่ไม่มีวันหลุด", d: "ความพยายามที่คุณ Input มาตลอดจะส่งผลในเร็ววัน ข้อสอบที่ว่ายากจะกลายเป็นเรื่องง่ายสำหรับคุณ" },
+            { t: "อัลกอริทึมในสมองจะเฉียบคม วิเคราะห์โจทย์ตรงจุดทุกข้อ", d: "สมาธิของคุณจะนิ่งและเสถียรยิ่งกว่าระบบ Real-time OS ไม่มีอาการ Lag หรือ Error ตลอดการทำข้อสอบ" },
+            { t: "ความจำแม่นยำ เหมือนบันทึกข้อมูลลงใน EEPROM", d: "อ่านอะไรไปจะจำได้หมดจด และดึงออกมาใช้ได้ทันเวลาในห้องสอบพอดี ข้อมูลในหัวจะไม่มีวันสูญหาย" },
+            { t: "ขอให้การสอบครั้งนี้เป็นการ 'Deploy' ความรู้ที่สมบูรณ์แบบ", d: "ความรู้ที่คุณสะสมมาจะทำงานได้อย่างเต็มประสิทธิภาพ 100% ไร้ Bug รบกวนตลอดการทำข้อสอบ" },
+            { t: "พลังกายและใจจะเต็มเปี่ยม เหมือนแบตเตอรี่ Infinite", d: "ความเหนื่อยล้าจะทำอะไรคุณไม่ได้ คุณจะผ่านช่วงอ่านหนังสือสอบหามรุ่งหามค่ำไปได้อย่างผู้ชนะ" },
+            { t: "ทุกโจทย์ยากจะคลี่คลาย เหมือนการลดทอนความซับซ้อนของวงจร", d: "คุณจะมองเห็นทางออกที่ง่ายที่สุดในปัญหาที่ซับซ้อนที่สุด สติคืออาวุธที่ทรงพลังของคุณ" },
+            { t: "จงมั่นใจ! คุณคือเวอร์ชันที่ดีที่สุดที่ได้รับการอัปเกรดมาแล้ว", d: "ไม่มีบททดสอบไหนที่ยากเกินความสามารถของคุณ การสอบครั้งนี้คือเวทีแสดงศักยภาพที่คุณมี" },
+            { t: "การสอบเข้า IoTE จะราบรื่น เหมือนต่อจิ๊กซอว์ชิ้นสุดท้ายได้พอดี", d: "ความสำเร็จรอคุณอยู่ปลายทาง มั่นใจในเส้นทางที่เลือก คุณเกิดมาเพื่อเป็นวิศวกรยุคใหม่" },
+            { t: "สมาธิจะโฟกัสตรงจุด เหมือนลำแสง Laser ที่ผ่านเลนส์รวมแสง", d: "เสียงรอบข้างจะทำอะไรคุณไม่ได้ คุณจะจดจ่ออยู่กับข้อสอบและทำมันออกมาได้ดีเยี่ยม" },
+            { t: "จังหวะชีวิตจะลงตัว เหมือนการ Sync ข้อมูลแบบ Latency ต่ำ", d: "ทั้งความรู้ แรงบันดาลใจ และโชคชะตา จะมาพร้อมกันในเวลาที่คุณต้องการพอดี" },
+            { t: "ความคิดสร้างสรรค์พุ่งพล่าน เหมือนการ Overclock สมองระดับสูงสุด", d: "โจทย์เขียนบรรยายหรือแก้ปัญหาเฉพาะหน้าจะไหลลื่น ไอเดียคุณจะยอดเยี่ยมจนกรรมการต้องทึ่ง" },
+            { t: "ขอให้เทพเจ้าแห่งการ Debug อยู่ข้างคุณในห้องสอบ", d: "หากเจอจุดที่สับสน คุณจะหาทางแก้ไขและเลือกคำตอบที่ถูกต้องได้อย่างน่าอัศจรรย์" },
+            { t: "คุณคือดาวเด่นในรุ่น เหมือน LED ที่สว่างที่สุดบนบอร์ดควบคุม", d: "ความตั้งใจของคุณสะท้อนออกมาในผลงานและคะแนนสอบ ทุกคนจะยอมรับในความพยายามของคุณ" },
+            { t: "ขอให้ความโชคดี 'Connect' กับคุณตลอดเวลาการสอบ", d: "ข้อไหนที่ลังเล ขอให้เซนส์และสัญชาตญาณวิศวกรนำพาคุณไปสู่คำตอบที่ใช่ที่สุด" },
+            { t: "ชีวิตในรั้ว สจล. รอคุณอยู่ พร้อมสีส้มแห่งรุ่งอรุณที่สดใส", d: "ความเหนื่อยวันนี้คือเชื้อเพลิงสู่ความสำเร็จในรั้วมหาลัยที่คุณใฝ่ฝัน อีกนิดเดียวเท่านั้น!" },
+            { t: "รักษาระดับพลังงานใจให้ Stable เหมือนไฟฟ้ากระแสตรง DC", d: "อย่าให้ความกังวลมาทำให้ระบบรวน เชื่อมั่นในศักยภาพที่คุณสะสมมาตั้งแต่ Day 1" },
+            { t: "คุณจะผ่านด่านนี้ไปได้แบบ Mission Complete ในรอบเดียว", d: "ไม่ต้องเสียเวลา Re-take หรือ Re-submit เพราะรอบนี้คุณจัดเต็มและทำได้ดีที่สุดแล้ว" },
+            { t: "ทุกตัวอักษรที่อ่านจะกลายเป็นคะแนนที่งดงาม", d: "สิ่งที่คุณทุ่มเทอ่านมาจะไม่สูญเปล่า มันจะถูกดึงออกมาใช้ในห้องสอบอย่างแม่นยำ" },
+            { t: "ขอให้การนำเสนอผลงานราบรื่น เหมือน Stream วิดีโอ 4K", d: "ความประหม่าจะหายไป เหลือไว้เพียงความมั่นใจและองค์ความรู้ที่ถ่ายทอดออกมาได้อย่างน่าประทับใจ" },
+            { t: "ปลายปากกาของคุณคือเครื่องมือสร้างอนาคตที่ยิ่งใหญ่", d: "ทุกข้อที่ขีดเขียนลงไป คือก้าวสำคัญที่พาคุณไปสู่ความสำเร็จระดับโลก" }
+        ];
+
+        let drawn = { 1: null, 2: null };
+
+        function allowDrop(ev) { ev.preventDefault(); }
+        function drop(ev, slotId) {
+            ev.preventDefault();
+            const icon = ev.dataTransfer.getData("icon");
+            const slot = document.getElementById(`slot-${slotId}`);
+            slot.innerHTML = `<span>${icon}</span><small>Connected</small>`;
+            slot.classList.add('active');
+            drawn[slotId] = icon;
+
+            if (drawn[1] && drawn[2]) {
+                processBlessing();
+            }
+        }
+
+        function processBlessing() {
+            document.getElementById('status-msg').innerText = "ประมวลผลเสร็จสิ้น!";
+            const random = blessings[Math.floor(Math.random() * blessings.length)];
+            
+            document.getElementById('res-text').innerText = `"${random.t}"`;
+            document.getElementById('res-desc').innerText = random.d;
+            document.getElementById('result-display').style.display = 'block';
+            
+            // Scroll to result
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

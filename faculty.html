@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty | IoTE KMITL - คณาจารย์ผู้เชี่ยวชาญ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Tenor+Sans&family=Prompt:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* สไตล์พิเศษสำหรับการแสดงรูปอาจารย์ */
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 4rem 3rem;
+            margin-top: 3rem;
+        }
+        .prof-card {
+            text-align: left;
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .prof-img-wrapper {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #f4f4f4;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            filter: grayscale(1);
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .prof-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .prof-card:hover .prof-img-wrapper {
+            filter: grayscale(0);
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .prof-img-wrapper::after {
+            content: 'IoTE_STAFF';
+            position: absolute;
+            bottom: 10px; right: 10px;
+            font-family: 'Tenor Sans';
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: rgba(0,0,0,0.2);
+        }
+        .prof-name {
+            font-family: 'Tenor Sans', 'Prompt';
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+            min-height: 3rem; /* ช่วยให้ชื่อที่ยาวต่างกันยังคงแนวระดับเดียวกัน */
+        }
+        .prof-position {
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        .prof-specialty {
+            font-size: 0.85rem;
+            color: var(--dim-text);
+            border-top: 1px solid var(--border);
+            padding-top: 0.8rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+    <div class="glow-orb"></div>
+
+    <nav>
+        <div class="logo">IoTE <span>KMITL</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT IoTE</a></li>
+            <li><a href="academics.html">ACADEMICS</a></li>
+            <li><a href="faculty.html" class="active">FACULTY</a></li>
+            <li><a href="performance.html">PERFORMANCE</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+            <li>
+    <a href="play.html" class="magic-portal" title="Intelligence Hub">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+        </svg>
+    </a>
+</li>
+        </ul>
+    </nav>
+
+    <header class="container" style="padding-top: 15rem; padding-bottom: 5rem;">
+        <span class="label reveal">THE EXPERTS</span>
+        <h1 class="reveal" style="font-size: clamp(3rem, 10vw, 7rem);">FACULTY <span>MEMBERS.</span></h1>
+    </header>
+
+    <section class="container">
+        <div class="reveal" style="margin-bottom: 10rem;">
+            <span class="label">GROUP 01</span>
+            <h2 style="margin-bottom: 1rem;">IoT System and Information Engineering</h2>
+            <p style="max-width: 600px; margin-bottom: 3rem;">คณาจารย์ผู้เชี่ยวชาญด้าน Web Application, Mobile Application, Information Security, Microprocessor Application, Internet of Things and Smart System</p>
+            
+            <div class="faculty-grid">
+                <div class="prof-card reveal">
+                    <div class="prof-img-wrapper">
+                        <img src="13.jpg" alt="Asst.Prof.Dr.Pikulkaew Tangtisanon" onerror="this.parentElement.style.background='#eee'">
+                    </div>
+                    <span class="prof-position">Head of Department</span>
+                    <div class="prof-name">Asst.Prof.Dr.Pikulkaew Tangtisanon</div>
+                    <p class="prof-specialty">D.Eng. (Science and Technology) Tokai University, JAPAN</p>
+                </div>
+
+                <div class="prof-card reveal" style="transition-delay: 0.1s;">
+                    <div class="prof-img-wrapper">
+                        <img src="14.jpg" alt="Prof.Dr.Apirat Siritaratiwat" onerror="this.parentElement.style.background='#eee'">
+                    </div>
+                    <span class="prof-position">Deputy Head of the Department</span>
+                    <div class="prof-name">Prof.Dr.Apirat Siritaratiwat</div>
+                    <p class="prof-specialty">Expertise: Edge AI, Machine Learning, Cyber-Physical Systems</p>
+                </div>
+
+                <div class="prof-card reveal" style="transition-delay: 0.2s;">
+                    <div class="prof-img-wrapper">
+                        <img src="16.jpg" alt="Asst.Prof.Dr.Vanvisa Chutchavong" onerror="this.parentElement.style.background='#eee'">
+                    </div>
+                    <span class="prof-position">Lecturer</span>
+                    <div class="prof-name">Asst.Prof.Dr.Vanvisa Chutchavong</div>
+                    <p class="prof-specialty">Expertise: Cybersecurity in IoT, Railway Signaling and Operation, Bernstein Filter</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="reveal" style="margin-bottom: 8rem;">
+            <span class="label">GROUP 02</span>
+            <h2 style="margin-bottom: 1rem;">Industrial Physics & Sensing</h2>
+            <p style="max-width: 600px; margin-bottom: 3rem;">เชี่ยวชาญด้านวัสดุศาสตร์อุตสาหกรรม, ระบบเซนเซอร์ขั้นสูง และวิศวกรรมแสงเพื่อการวัดที่แม่นยำ</p>
+            
+            <div class="faculty-grid">
+                <div class="prof-card reveal">
+                    <div class="prof-img-wrapper">
+                        <img src="17.jpg" alt="Assoc.Prof.Dr.Pattareeya Damrongsak" onerror="this.parentElement.style.background='#eee'">
+                    </div>
+                    <span class="prof-position">Head of Department of Physics</span>
+                    <div class="prof-name">Assoc.Prof.Dr.Pattareeya Damrongsak</div>
+                    <p class="prof-specialty">Expertise: OPTICAL SPECTROSCOPY, SILICON PHOTOVOLTAICS, FLUORESCENT CONCENTRATORS</p>
+                </div>
+                
+                <div class="prof-card reveal" style="transition-delay: 0.1s;">
+                    <div class="prof-img-wrapper">
+                        <img src="18.jpg" alt="Assoc.Prof.Dr.Sarai Lekchaaum" onerror="this.parentElement.style.background='#eee'">
+                    </div>
+                    <span class="prof-position">Lecturer</span>
+                    <div class="prof-name">Assoc.Prof.Dr.Sarai Lekchaaum</div>
+                    <p class="prof-specialty">Expertise: Industrial Automation, Optical Engineering, STIRLING ENGINE, MEASURING METHOD</p>
+                </div>
+
+                <div class="prof-card reveal" style="transition-delay: 0.2s;">
+                    <div class="prof-img-wrapper">
+                        <img src="19.jpg" alt="Faculty Member 3" onerror="this.parentElement.style.background='#eee'">
+                    </div>
+                    <span class="prof-position">Lecturer</span>
+                    <div class="prof-name">Asst.Prof.Thanaporn Leelawattananon</div>
+                    <p class="prof-specialty">Expertise:  MODELING AND SIMULATION, SURFACE PLASMONS, OPTICAL DATA COMMUNICATION</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-grid reveal" style="margin-top: 10rem; border-top: 1px solid var(--border); padding-top: 5rem; padding-bottom: 5rem;">
+            <div>
+                <span class="label">CONNECT WITH EXPERTS</span>
+                <h2>ต้องการปรึกษา<br>คณาจารย์ของเรา?</h2>
+            </div>
+            <div>
+                <p style="margin-bottom: 3rem; color: var(--dim-text);">หากคุณเป็นนักศึกษาที่สนใจหัวข้องานวิจัย หรือหน่วยงานภายนอกที่ต้องการร่วมมือทางวิชาการ (Industrial Collaboration) สามารถติดต่อเพื่อขอนัดหมายเข้าพบคณาจารย์ได้ผ่านสำนักงานภาควิชา</p>
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                    <a href="contact.html" class="nav-btn" style="padding: 1.2rem 3rem; display: inline-block; text-decoration: none; background: #000; color: #fff !important;">OFFICE DIRECTORY</a>
+                    <a href="#" class="nav-btn" style="padding: 1.2rem 3rem; display: inline-block; text-decoration: none;">RESEARCH LABS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">IoTE <span>KMITL</span></div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/IOTE.KMITL?mibextid=wwXIfr&rdid=25CPRn6FU3PUXONX&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Gx8LU5F8J%2F%3Fmibextid%3DwwXIfr#"target="_blank"><img src="Facebook.png" alt="Facebook" class="social-icon"></a>
+    <a href="https://www.instagram.com/kmitl.iote.official?igsh=MTRmMmxjOWxud3BwNQ%3D%3D"target="_blank"><img src="instagram.png" alt="LinkedIn" class="social-icon"></a>
+    <a href="https://www.youtube.com/@iote_kmitl"target="_blank"><img src="Youtube.png" alt="YouTube" class="social-icon" style="width: 60px;"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IoT SYSTEM AND INFORMATION ENGINEERING, KMITL.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoTE Heart Reactor | พลังแห่งความสำเร็จ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Tenor+Sans&family=Prompt:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --accent: #ff6b00; 
+            --dim-text: #666;
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', 'Prompt', sans-serif; overflow: hidden; height: 100vh; }
+        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: #ffffff; }
+
+        /* --- Navbar --- */
+        nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, 0.85); }
+        .logo { font-family: 'Tenor Sans', sans-serif; font-size: 1.4rem; font-weight: bold; letter-spacing: 3px; color: #000; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dim-text); font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; }
+        .nav-btn { border: 1.5px solid var(--accent); padding: 0.5rem 1.5rem; border-radius: 50px; color: var(--accent) !important; transition: 0.3s; }
+        .nav-btn:hover { background: var(--accent); color: #fff !important; }
+
+        /* --- Reactor Interface --- */
+        .lab-container { padding-top: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+        .label { color: var(--accent); font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; }
+        h1 { font-family: 'Tenor Sans', 'Prompt', sans-serif; font-weight: 400; margin-bottom: 1rem; }
+
+        /* Heart Reactor */
+        .reactor-core {
+            position: relative; width: 320px; height: 320px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #heart-icon {
+            font-size: 6rem; transition: transform 0.05s, filter 0.2s;
+            filter: grayscale(100%) opacity(0.2);
+            z-index: 2;
+        }
+
+        .core-glow {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%; z-index: 1; transform: scale(0); transition: 0.2s;
+        }
+
+        /* Progress Bar */
+        .progress-container { width: 300px; height: 8px; background: #f0f0f0; border-radius: 10px; margin-top: 2rem; overflow: hidden; position: relative; border: 1px solid var(--border); }
+        #progress-bar { width: 0%; height: 100%; background: var(--accent); transition: 0.1s linear; box-shadow: 0 0 20px var(--accent); }
+
+        /* --- Full Screen Flash & Cute Animation --- */
+        #flash-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--accent); z-index: 3000; display: none;
+            flex-direction: column; align-items: center; justify-content: center; color: white;
+            overflow: hidden;
+        }
+        .overload-text { font-family: 'Prompt', sans-serif; font-size: 2.5rem; font-weight: 600; margin-bottom: 10px; z-index: 10; text-align: center; }
+        .sub-text { letter-spacing: 5px; font-weight: 300; z-index: 10; animation: pulseText 1s infinite alternate; }
+        
+        @keyframes pulseText { from { opacity: 0.7; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* Floating Mini Hearts */
+        .floating-heart {
+            position: absolute; color: white; opacity: 0.6;
+            animation: floatUp var(--d) linear infinite;
+            bottom: -50px; user-select: none; z-index: 5;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .hint { margin-top: 1.5rem; font-size: 0.75rem; color: #bbb; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; }
+        .btn-reset-simple { margin-top: 40px; background: white; color: var(--accent); border: none; padding: 14px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; letter-spacing: 1px; z-index: 20; transition: 0.3s; }
+        .btn-reset-simple:hover { transform: scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+
+    <nav>
+        <a href="#" class="logo">IoTE <span>KMITL</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+        </ul>
+    </nav>
+
+    <main class="lab-container">
+        <span class="label">System Energy Charge</span>
+        <h1>มาเติมเต็มความรักที่พวกเรามีให้คุณกัน</h1>
+
+        <div class="reactor-core" onmousedown="chargeHeart()" ontouchstart="chargeHeart()">
+            <div class="core-glow" id="glow"></div>
+            <div id="heart-icon">🧡</div>
+        </div>
+
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        
+        <div id="status-val" style="margin-top: 15px; font-family: 'JetBrains Mono'; font-weight: 800; font-size: 1rem; color: var(--accent);">0%</div>
+        <p class="hint">Click rapidly to reach maximum capacity</p>
+    </main>
+
+    <div id="flash-overlay">
+        <div class="overload-text">ยินดีต้อนรับสู่ครอบครัว IoTE</div>
+        <div class="sub-text">LOVE YOUU 🧡</div>
+        <button class="btn-reset-simple" onclick="resetReactor()">RESET SYSTEM</button>
+    </div>
+
+    <script>
+        // Starfield DNA
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        class Star {
+            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 1.5; this.speed = Math.random() * 0.3; }
+            update() { this.y += this.speed; if (this.y > canvas.height) this.y = 0; }
+            draw() { ctx.fillStyle = '#ff6b0033'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+        }
+        function initStars() { stars = []; for (let i = 0; i < 80; i++) stars.push(new Star()); }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { resize(); initStars(); });
+        resize(); initStars(); animate();
+
+        // Core Logic
+        let energy = 0;
+        let isActive = true;
+        let heartInterval;
+        const heart = document.getElementById('heart-icon');
+        const glow = document.getElementById('glow');
+        const pBar = document.getElementById('progress-bar');
+        const statusVal = document.getElementById('status-val');
+        const flash = document.getElementById('flash-overlay');
+
+        function chargeHeart() {
+            if(!isActive) return;
+            
+            energy += 5; 
+            if(energy > 100) energy = 100;
+            
+            updateUI();
+            
+            heart.style.transform = "scale(1.4)";
+            setTimeout(() => {
+                if(isActive) heart.style.transform = `scale(${1 + (energy/150)})`;
+            }, 50);
+
+            if(energy >= 100) {
+                triggerOverload();
+            }
+        }
+
+        setInterval(() => {
+            if(!isActive || energy <= 0) return;
+            energy -= 1.0; 
+            if(energy < 0) energy = 0;
+            updateUI();
+        }, 100);
+
+        function updateUI() {
+            pBar.style.width = energy + "%";
+            statusVal.innerText = Math.floor(energy) + "%";
+            
+            const intensity = energy / 100;
+            heart.style.filter = `grayscale(${100 - energy}%) opacity(${0.2 + (intensity * 0.8)}) drop-shadow(0 0 ${energy/4}px var(--accent))`;
+            glow.style.transform = `scale(${intensity * 1.8})`;
+        }
+
+        function triggerOverload() {
+            isActive = false;
+            heart.style.transition = "0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+            heart.style.transform = "scale(20)";
+            heart.style.opacity = "0";
+            
+            setTimeout(() => {
+                flash.style.display = 'flex';
+                startHeartRain();
+            }, 300);
+        }
+
+        // Cute Animation: Floating Hearts
+        function startHeartRain() {
+            heartInterval = setInterval(() => {
+                const h = document.createElement('div');
+                h.className = 'floating-heart';
+                h.innerHTML = ['🧡', '🤍', '✨', '☁️'][Math.floor(Math.random() * 4)];
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                h.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
+                flash.appendChild(h);
+                
+                setTimeout(() => h.remove(), 5000);
+            }, 150);
+        }
+
+        function resetReactor() {
+            clearInterval(heartInterval);
+            energy = 0;
+            isActive = true;
+            flash.style.display = 'none';
+            // Clear existing floating hearts
+            document.querySelectorAll('.floating-heart').forEach(h => h.remove());
+            
+            heart.style.transition = "transform 0.05s, filter 0.2s";
+            heart.style.transform = "scale(1)";
+            heart.style.opacity = "1";
+            updateUI();
+        }
+    </script>
+</body>
+</html>

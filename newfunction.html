@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tools | IoTE KMITL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Tenor+Sans&family=Prompt:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+
+    <nav>
+        <div class="logo">IoTE <span>KMITL</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="newfunction.html" class="active">FUNCTIONS</a></li>
+            <li><a href="#calendar">CALENDAR</a></li>
+            <li><a href="#" class="nav-btn">ADMISSION</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header style="text-align: center; margin-bottom: 5rem; margin-top: 5rem;">
+            <span class="label reveal">EXCLUSIVE CANDIDATE TOOLS</span>
+            <h1 class="reveal">SYSTEM <span>FUNCTIONS</span></h1>
+            <p class="reveal" style="color: var(--dim-text); max-width: 600px; margin: 1.5rem auto;">
+                เครื่องมือช่วยเหลืออัจฉริยะสำหรับผู้สมัครเข้าศึกษา เพื่อวิเคราะห์โอกาสและวางแผนอนาคตในสายงาน IoT
+            </p>
+        </header>
+
+        <div class="grid-3">
+            <div class="info-card reveal">
+                <div class="stat-num" style="font-size: 1rem; margin-bottom: 1rem;">FUNCTION 01</div>
+                <h3>Admission Predictor</h3>
+                <p style="color: var(--dim-text); margin-bottom: 2rem;">คำนวณโอกาสในการสอบติดภาควิชา IoTE โดยอิงจากเกรดเฉลี่ยสะสม (GPAX)</p>
+                
+                <div class="tool-ui">
+                    <input type="number" id="gpa-input" placeholder="ระบุ GPAX (เช่น 3.75)" step="0.01" min="0" max="4" 
+                           style="width: 100%; padding: 12px; background: var(--placeholder-bg); border: 1px solid var(--border); color: var(--text); border-radius: 4px; outline: none; margin-bottom: 1rem;">
+                    <button onclick="calculateChance()" class="action-btn">วิเคราะห์ผลข้อมูล</button>
+                    <div id="result-display" style="margin-top: 1.5rem; text-align: center; font-size: 0.95rem; min-height: 24px;"></div>
+                </div>
+            </div>
+
+            <div class="info-card reveal" style="transition-delay: 0.1s;">
+                <div class="stat-num" style="font-size: 1rem; margin-bottom: 1rem;">FUNCTION 02</div>
+                <h3>Virtual Lab Tour</h3>
+                <p style="color: var(--dim-text); margin-bottom: 2rem;">สำรวจห้องปฏิบัติการ IoT และอุปกรณ์ระดับ Industrial Grade ผ่านระบบ Virtual 360°</p>
+                <div class="card-image-box">360° VIEW COMING SOON</div>
+                <a href="#" class="card-link">เข้าชมห้อง LAB →</a>
+            </div>
+
+            <div class="info-card reveal" style="transition-delay: 0.2s;">
+                <div class="stat-num" style="font-size: 1rem; margin-bottom: 1rem;">FUNCTION 03</div>
+                <h3>Career Matcher</h3>
+                <p style="color: var(--dim-text); margin-bottom: 2rem;">ค้นหาสายงานที่ใช่ (AI, Cybersecurity, หรือ Robotics) ตามทักษะความสนใจของคุณ</p>
+                <div class="card-image-box">AI ASSESSMENT TOOL</div>
+                <a href="#" class="card-link">เริ่มทำแบบทดสอบ →</a>
+            </div>
+
+            <div id="calendar" class="info-card reveal" style="transition-delay: 0.3s;">
+                <div class="stat-num" style="font-size: 1rem; margin-bottom: 1rem;">FUNCTION 04</div>
+                <h3>Admission Calendar</h3>
+                <p style="color: var(--dim-text); margin-bottom: 2rem;">ติดตามกำหนดการรับสมัคร TCAS รอบต่างๆ ของภาควิชาอย่างใกล้ชิด</p>
+                <div style="border-left: 2px solid var(--accent); padding-left: 15px; margin-bottom: 2rem;">
+                    <p style="font-size: 0.8rem; font-weight: 600;">TCAS 1: Portfolio</p>
+                    <p style="font-size: 0.75rem; color: var(--dim-text); margin-bottom: 10px;">เปิดรับ: พฤศจิกายน - มกราคม</p>
+                    <p style="font-size: 0.8rem; font-weight: 600;">TCAS 2: Quota</p>
+                    <p style="font-size: 0.75rem; color: var(--dim-text);">เปิดรับ: กุมภาพันธ์ - มีนาคม</p>
+                </div>
+                <a href="#" class="card-link">ดูประกาศล่าสุด →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Hub | IoTE KMITL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Tenor+Sans&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --accent: #ff6b00; 
+            --accent-soft: #ff8533;
+            --border: rgba(0, 0, 0, 0.08);
+            --dim-text: #666;
+            --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', 'Prompt', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+        /* --- Background Animation --- */
+        .bg-visual {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 0% 0%, rgba(255, 107, 0, 0.05) 0%, transparent 35%),
+                        radial-gradient(circle at 100% 100%, rgba(255, 107, 0, 0.05) 0%, transparent 35%);
+            animation: bgShift 15s ease-in-out infinite alternate;
+        }
+        @keyframes bgShift { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+        /* --- Navbar --- */
+        nav { 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            padding: 1.5rem 5%; display: flex; justify-content: space-between; 
+            align-items: center; backdrop-filter: blur(15px); 
+            background: rgba(255, 255, 255, 0.8); border-bottom: 1px solid var(--border); 
+        }
+        .logo { font-family: 'Tenor Sans', sans-serif; font-size: 1.4rem; font-weight: bold; letter-spacing: 3px; color: #000; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dim-text); font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; }
+        .nav-btn { border: 1.5px solid var(--accent); padding: 0.5rem 1.5rem; border-radius: 50px; color: var(--accent) !important; }
+
+        /* --- Hub Layout --- */
+        .hub-container { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 5% 60px 5%; }
+        .hub-title { text-align: center; margin-bottom: 4rem; animation: fadeInUp 1s ease forwards; }
+        .hub-title h1 { font-family: 'Tenor Sans'; font-size: 3rem; letter-spacing: -1px; margin-top: 10px; }
+        .hub-title span { -webkit-text-stroke: 1px #000; -webkit-text-fill-color: transparent; }
+        .label { color: var(--accent); font-weight: 800; font-size: 0.7rem; letter-spacing: 8px; }
+
+        /* Grid Setup */
+        .function-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+            max-width: 1400px; width: 100%; animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .func-card {
+            background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--border);
+            padding: 3.5rem 1.5rem; text-align: center; text-decoration: none; color: #000;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .func-card:hover { transform: translateY(-10px); border-color: var(--accent); background: #fff; box-shadow: 0 20px 40px rgba(255, 107, 0, 0.1); }
+        .func-card .icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+        .func-card h3 { font-family: 'Tenor Sans'; font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: 1px; }
+        .func-card p { font-size: 0.8rem; color: var(--dim-text); line-height: 1.6; }
+        
+        /* Underline effect on hover */
+        .func-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transition: 0.4s; }
+        .func-card:hover::after { transform: scaleX(1); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Responsive Grid */
+        @media (max-width: 1024px) { .function-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .function-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-visual"></div>
+    <canvas id="starfield" style="position:fixed; top:0; left:0; z-index:-1;"></canvas>
+
+    <nav>
+        <div class="logo">IoTE <span>KMITL</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+        </ul>
+    </nav>
+
+    <main class="hub-container">
+        <div class="hub-title">
+            <span class="label">INTELLIGENCE HUB</span>
+            <h1>SELECT YOUR <span>PORTAL</span></h1>
+        </div>
+
+        <div class="function-grid">
+            <a href="analyzer.html" class="func-card">
+                <span class="icon">🔍</span>
+                <h3>ALL ABOUT IOT</h3>
+                <p>เจาะลึกทุกเรื่องราวของ IoTE KMITL</p>
+            </a>
+
+            <a href="heart.html" class="func-card">
+                <span class="icon">❤️</span>
+                <h3>HEART BEAT</h3>
+                <p>ส่งต่อความรักและความคิดถึงให้พวกคุณ</p>
+            </a>
+
+            <a href="card.html" class="func-card">
+                <span class="icon">🃏</span>
+                <h3>FUTURE TAROT</h3>
+                <p>ท้อไหม? มาสุ่มไพ่ทายอนาคตกัน</p>
+            </a>
+
+            <a href="cal.html" class="func-card">
+                <span class="icon">📊</span>
+                <h3>GPA PLANNER</h3>
+                <p>คำนวณและวางแผนเกรดฉบับวิศวกร</p>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Starfield DNA
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.2;
+                this.speed = Math.random() * 0.15;
+            }
+            update() {
+                this.y += this.speed;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 107, 0, 0.2)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            stars = [];
+            for (let i = 0; i < 100; i++) stars.push(new Star());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.update();
+                s.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => { resize(); init(); });
+        resize();
+        init();
+        animate();
+    </script>
+</body>
+</html>

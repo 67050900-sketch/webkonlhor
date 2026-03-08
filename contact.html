@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | IoTE KMITL - ติดต่อเรา</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Tenor+Sans&family=Prompt:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* สไตล์พิเศษสำหรับหน้า Contact */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .contact-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            transition: 0.4s;
+        }
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        .contact-card h3 {
+            font-family: 'Tenor Sans';
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .contact-card p {
+            color: var(--text);
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        .map-container {
+            margin-top: 4rem;
+            position: relative;
+            width: 100%;
+            border: 1px solid var(--border);
+        }
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            display: block;
+        }
+        .transport-info {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .transport-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+    <div class="glow-orb"></div>
+
+    <nav>
+        <div class="logo">IoTE <span>KMITL</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT IoTE</a></li>
+            <li><a href="academics.html">ACADEMICS</a></li>
+            <li><a href="faculty.html">FACULTY</a></li>
+            <li><a href="performance.html">PERFORMANCE</a></li>
+            <li><a href="contact.html" class="active">CONTACT</a></li>
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+            <li>
+    <a href="play.html" class="magic-portal" title="Intelligence Hub">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+        </svg>
+    </a>
+</li>
+        </ul>
+    </nav>
+
+    <header class="container" style="padding-top: 15rem; padding-bottom: 5rem;">
+        <span class="label reveal">GET IN TOUCH</span>
+        <h1 class="reveal" style="font-size: clamp(3rem, 10vw, 7rem);">CONTACT <span></span></h1>
+    </header>
+
+    <section class="container">
+        <div class="section-grid">
+            <div class="reveal">
+                <span class="label">LOCATION</span>
+                <h2>สำนักงานภาควิชา</h2>
+                <p style="margin-top: 2rem; font-size: 1.1rem; line-height: 1.8;">
+                    <strong>ชั้น 4 อาคารเรียนรวมสมเด็จพระเทพฯ (ตึก E12)</strong><br>
+                    ภาควิชาวิศวกรรมระบบไอโอทีและสารสนเทศ<br>
+                    คณะวิศวกรรมศาสตร์ สจล.<br>
+                    เลขที่ 1 ซอยฉลองกรุง 1 แขวงลำปลาทิว<br>
+                    เขตลาดกระบัง กรุงเทพฯ 10520
+                </p>
+
+                <div class="transport-info">
+                    <div>
+                        <span class="label" style="font-size: 0.6rem;">OFFICE HOURS</span>
+                        <p>วันจันทร์ - ศุกร์: 08:30 – 16:30 น.<br>(ยกเว้นวันหยุดนักขัตฤกษ์)</p>
+                    </div>
+                    <div>
+                        <span class="label" style="font-size: 0.6rem;">SOCIAL MEDIA</span>
+                        <p>FB: IoTE KMITL<br>IG: @iote.kmitl</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <div class="contact-info-grid">
+                    <div class="contact-card">
+                        <h3>EMAIL</h3>
+                        <p>iote@kmitl.ac.th</p>
+                    </div>
+                    <div class="contact-card">
+                        <h3>PHONE</h3>
+                        <p>02-329-8000 ต่อ 3560</p>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.7915570220267!2d100.7758713!3d13.7275298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d664a75304383%3A0x6734c5625e1a1796!2sFaculty%20of%20Engineering%2C%20KMITL!5e0!3m2!1sen!2sth!4v1700000000000!5m2!1sen!2sth" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-grid reveal" style="margin-top: 6rem;">
+            <div>
+                <span class="label">HOW TO GET HERE</span>
+                <h2>การเดินทาง</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h4 style="margin-bottom: 1rem; font-family: 'Tenor Sans';">PUBLIC TRANSPORT</h4>
+                    <p style="font-size: 0.9rem; color: var(--dim-text);">
+                        • Airport Rail Link: สถานีลาดกระบัง (ต่อรถสองแถวหรือแท็กซี่)<br>
+                        • รถไฟชานเมือง: สถานีพระจอมเกล้า<br>
+                        • รถเมล์: สาย 143, 1013, 517
+                    </p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem; font-family: 'Tenor Sans';">PRIVATE CAR</h4>
+                    <p style="font-size: 0.9rem; color: var(--dim-text);">
+                        ใช้ทางด่วนมอเตอร์เวย์ (กรุงเทพ-ชลบุรี) ออกทางขนานลาดกระบัง หรือใช้เส้นทางถนนอ่อนนุช-ลาดกระบัง มีที่จอดรถใกล้อาคาร E12
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-grid reveal" style="margin-top: 8rem; border-top: 1px solid var(--border); padding-top: 5rem;">
+            <div>
+                <span class="label">ADMISSION ENQUIRY</span>
+                <h2>สนใจเข้าศึกษาต่อ?</h2>
+            </div>
+            <div>
+                <p style="margin-bottom: 3rem; color: var(--dim-text);">หากมีข้อสงสัยเกี่ยวกับเกณฑ์คะแนนรอบ TCAS หรือต้องการปรึกษาแนวทางการเรียนต่อ สามารถส่งข้อความสอบถามทางเพจ Facebook ได้ตลอด 24 ชั่วโมง หรือติดต่อสำนักงานในเวลาทำการ</p>
+                <a href="admission.html" class="nav-btn" style="padding: 1.2rem 3rem; display: inline-block; text-decoration: none;">CHECK ADMISSION DETAILS</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">IoTE <span>KMITL</span></div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/IOTE.KMITL?mibextid=wwXIfr&rdid=25CPRn6FU3PUXONX&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Gx8LU5F8J%2F%3Fmibextid%3DwwXIfr#"target="_blank"><img src="Facebook.png" alt="Facebook" class="social-icon"></a>
+    <a href="https://www.instagram.com/kmitl.iote.official?igsh=MTRmMmxjOWxud3BwNQ%3D%3D"target="_blank"><img src="instagram.png" alt="LinkedIn" class="social-icon"></a>
+    <a href="https://www.youtube.com/@iote_kmitl"target="_blank"><img src="Youtube.png" alt="YouTube" class="social-icon" style="width: 60px;"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 IoT SYSTEM AND INFORMATION ENGINEERING, KMITL.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

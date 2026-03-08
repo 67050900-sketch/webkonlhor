@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoTE Alphabet Catch | สุ่มถอดรหัสลับ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Tenor+Sans&family=Prompt:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --accent: #ff6b00; 
+            --accent-soft: #ff8533;
+            --border: rgba(0, 0, 0, 0.08);
+            --dim-text: #666;
+            --danger: #ff4d4d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', 'Prompt', sans-serif; overflow: hidden; height: 100vh; user-select: none; }
+        
+        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: #ffffff; }
+
+        /* --- Navbar --- */
+        nav { 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            padding: 1.5rem 5%; display: flex; justify-content: space-between; 
+            align-items: center; backdrop-filter: blur(15px); 
+            background: rgba(255, 255, 255, 0.85); border-bottom: 1px solid var(--border); 
+        }
+        .logo { font-family: 'Tenor Sans', sans-serif; font-size: 1.4rem; font-weight: bold; letter-spacing: 3px; color: #000; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dim-text); font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; }
+        .nav-btn { border: 1.5px solid var(--accent); padding: 0.5rem 1.5rem; border-radius: 50px; color: var(--accent) !important; }
+
+        /* --- Timer Display --- */
+        .timer-container {
+            position: fixed; top: 100px; right: 5%; z-index: 500;
+            background: rgba(255, 255, 255, 0.9); padding: 10px 25px;
+            border-radius: 50px; border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1.2rem;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .timer-danger { color: var(--danger); animation: shake 0.2s infinite; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2px); } }
+
+        /* --- Falling Letters --- */
+        .falling-letter {
+            position: absolute; cursor: pointer; font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem; font-weight: 800; color: var(--accent);
+            z-index: 50; padding: 10px;
+            filter: drop-shadow(0 4px 8px rgba(255, 107, 0, 0.2));
+            animation: wobble 2s ease-in-out infinite;
+        }
+        @keyframes wobble { 0%, 100% { transform: rotate(-10deg) translateX(-5px); } 50% { transform: rotate(10deg) translateX(5px); } }
+
+        /* --- Game UI --- */
+        .game-ui {
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            z-index: 100; pointer-events: none; width: 95%; max-width: 1000px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .mission-tag {
+            background: var(--accent); color: white; padding: 5px 20px;
+            border-radius: 20px 20px 0 0; font-size: 0.7rem; font-weight: 800;
+            letter-spacing: 2px; transform: translateY(1px);
+        }
+        .target-display {
+            display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+            background: rgba(255, 255, 255, 0.9); padding: 25px; border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid var(--border);
+            backdrop-filter: blur(10px); width: 100%;
+        }
+        .letter-slot {
+            width: 25px; height: 35px; border-bottom: 2px solid #eee;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 800;
+            color: var(--accent); transition: 0.4s;
+        }
+        .letter-slot.filled { border-bottom-color: var(--accent); transform: scale(1.1); }
+        .letter-slot.space { border-bottom: none; width: 10px; }
+
+        /* --- Overlays --- */
+        #success-overlay, #fail-overlay {
+            position: fixed; inset: 0; z-index: 3000;
+            display: none; flex-direction: column; align-items: center; justify-content: center; color: white;
+            padding: 20px;
+        }
+        #success-overlay { background: var(--accent); }
+        #fail-overlay { background: #333; }
+
+        .explanation-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px; border-radius: 20px;
+            max-width: 500px; margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.3);
+            text-align: center; line-height: 1.6;
+        }
+
+        .btn-action {
+            margin-top: 10px; padding: 15px 45px; border-radius: 50px; border: none;
+            background: var(--accent); color: white; font-size: 1rem; font-weight: 800;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .btn-action:hover { transform: scale(1.05); }
+
+        .particle { position: absolute; pointer-events: none; z-index: 60; font-size: 1.5rem; animation: particleOut 0.7s ease-out forwards; }
+        @keyframes particleOut { to { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+
+    <nav>
+        <a href="index.html" class="logo">IoTE <span>KMITL</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="admission.html" class="nav-btn">ADMISSION</a></li>
+        </ul>
+    </nav>
+
+    <div class="timer-container" id="timer-box" style="display: none;">
+        <span>⏳</span> <span id="time-left">00</span>s
+    </div>
+
+    <div id="start-screen" style="position: fixed; inset: 0; background: white; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="text-align: center;">
+            <span style="color: var(--accent); letter-spacing: 5px; font-weight: 600;">MISSION BRIEFING</span>
+            <h1 style="font-family: 'Tenor Sans'; font-size: 2.5rem; margin: 10px 0;">CODE <span>CATCHER</span></h1>
+            <p style="color: #888;">ดักจับรหัสลับ IoTE ที่ถล่มลงมาให้ทัน!</p>
+            <button class="btn-action" onclick="startGame()">START MISSION</button>
+        </div>
+    </div>
+
+    <div class="game-ui">
+        <div class="mission-tag" id="mission-tag">MISSION: ???</div>
+        <div class="target-display" id="display"></div>
+    </div>
+
+    <div id="success-overlay">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🔓</div>
+        <h2 style="font-family: 'Tenor Sans'; font-size: 2rem; letter-spacing: 5px;">DECODED</h2>
+        <p id="win-word" style="font-family: 'JetBrains Mono'; font-size: 1.5rem; margin: 5px 0; color: #fff; font-weight: 800;"></p>
+        
+        <div class="explanation-card">
+            <strong style="display: block; margin-bottom: 10px; font-size: 1.2rem;">DID YOU KNOW?</strong>
+            <span id="explanation-text">...</span>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-action" style="background: white; color: var(--accent);" onclick="location.reload()">NEXT MISSION</button>
+            <button class="btn-action" style="background: transparent; border: 2px solid white;" onclick="window.location.href='index.html'">HOME</button>
+        </div>
+    </div>
+
+    <div id="fail-overlay">
+        <div style="font-size: 4rem; margin-bottom: 10px;">⌛</div>
+        <h2 style="font-family: 'Tenor Sans'; font-size: 2.5rem; letter-spacing: 5px;">TIME OUT</h2>
+        <button class="btn-action" onclick="location.reload()">RETRY MISSION</button>
+    </div>
+
+    <script>
+        // Starfield DNA
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        class Star {
+            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 1.5; this.speed = Math.random() * 0.3; }
+            update() { this.y += this.speed; if (this.y > canvas.height) this.y = 0; }
+            draw() { ctx.fillStyle = '#ff6b0033'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+        }
+        function initStars() { stars = []; for (let i = 0; i < 70; i++) stars.push(new Star()); }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { resize(); initStars(); });
+        resize(); initStars(); animate();
+
+        // Game Configuration & Explanations
+        const wordData = {
+            "IOT ENGINEERING KMITL": "หลักสูตรที่ปั้นวิศวกรยุคใหม่ที่ KMITL เน้นสร้างนวัตกรรมที่เชื่อมต่อโลกผ่าน Internet และ Hardware อัจฉริยะ",
+            "SMART TECHNOLOGY": "เทคโนโลยีที่ใช้ Sensor และ AI ในการประมวลผล เพื่อให้ระบบสามารถตัดสินใจและทำงานได้เองอย่างชาญฉลาด",
+            "DIGITAL INNOVATION": "การสร้างสรรค์สิ่งใหม่ด้วยเทคโนโลยีดิจิทัล เพื่อแก้ปัญหาเดิมๆ ในรูปแบบที่มีประสิทธิภาพมากขึ้น",
+            "EMBEDDED SYSTEMS": "ระบบคอมพิวเตอร์ขนาดเล็กที่ฝังอยู่ในอุปกรณ์ต่างๆ เช่น แผงวงจรในตู้เย็น หรือระบบควบคุมรถยนต์",
+            "INTERNET OF THINGS": "เครือข่ายของสิ่งของที่เชื่อมต่ออินเทอร์เน็ต ทำให้เราสั่งงานหรือเก็บข้อมูลจากอุปกรณ์ได้ทุกที่ทั่วโลก",
+            "CYBER SECURITY": "เกราะป้องกันข้อมูลในโลกออนไลน์ เพราะเมื่อทุกอย่างเชื่อมต่อกัน ความปลอดภัยของข้อมูลจึงสำคัญที่สุด",
+            "CLOUD COMPUTING": "การประมวลผลบน Server ขนาดใหญ่ผ่านเน็ต ทำให้เราไม่ต้องเก็บข้อมูลไว้ในเครื่องตัวเองและเข้าถึงได้จากทุกที่",
+            "ROBOTICS LAB": "พื้นที่บ่มเพาะการสร้างหุ่นยนต์และระบบอัตโนมัติ ซึ่งเป็นหัวใจสำคัญของอุตสาหกรรม 4.0"
+        };
+        
+        const keys = Object.keys(wordData);
+        let targetText = keys[Math.floor(Math.random() * keys.length)];
+        let currentIndex = 0;
+        let gameActive = false;
+        let timeLeft = 0;
+        let spawnInterval, timerInterval;
+
+        document.getElementById('mission-tag').innerText = `MISSION: ${targetText}`;
+
+        // สร้างช่อง Slots
+        targetText.split('').forEach((char, index) => {
+            const slot = document.createElement('div');
+            if (char === ' ') { slot.className = 'letter-slot space'; } 
+            else { slot.className = 'letter-slot'; slot.id = `slot-${index}`; slot.innerText = ''; }
+            document.getElementById('display').appendChild(slot);
+        });
+
+        function startGame() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('timer-box').style.display = 'flex';
+            const cleanLength = targetText.replace(/\s/g, '').length;
+            timeLeft = Math.floor(40 + (cleanLength * 3)); // ให้เวลานานขึ้นตามคำขอ
+            updateTimerDisplay();
+            gameActive = true;
+            
+            // ปรับตัวอักษรลงถี่ขึ้น (จาก 900ms เหลือ 450ms)
+            spawnInterval = setInterval(createFallingLetter, 450); 
+            timerInterval = setInterval(countDown, 1000);
+        }
+
+        function countDown() {
+            timeLeft--;
+            updateTimerDisplay();
+            if (timeLeft <= 0) gameFail();
+        }
+
+        function updateTimerDisplay() {
+            const display = document.getElementById('time-left');
+            const box = document.getElementById('timer-box');
+            display.innerText = timeLeft;
+            if (timeLeft <= 5) box.classList.add('timer-danger');
+            else box.classList.remove('timer-danger');
+        }
+
+        function createFallingLetter() {
+            if (!gameActive) return;
+            const letterDiv = document.createElement('div');
+            letterDiv.className = 'falling-letter';
+            const isTarget = Math.random() < 0.35; // ปรับโอกาสเจอตัวเป้าหมาย
+            const nextTarget = targetText[currentIndex] === ' ' ? targetText[currentIndex+1] : targetText[currentIndex];
+            letterDiv.innerText = isTarget ? nextTarget : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[Math.floor(Math.random()*26)];
+            letterDiv.style.left = (Math.random() * 80 + 10) + 'vw';
+            document.body.appendChild(letterDiv);
+
+            const duration = Math.random() * 2000 + 4000; // ความเร็วการร่วงระดับปานกลาง
+            const anim = letterDiv.animate([{ top: '-10vh', opacity: 0 }, { top: '110vh', opacity: 1 }], { duration: duration, easing: 'linear' });
+
+            const handleHit = (e) => {
+                const clickX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+                const clickY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+                if (letterDiv.innerText === targetText[currentIndex]) {
+                    createParticles(clickX, clickY);
+                    collectLetter(letterDiv.innerText, currentIndex);
+                    letterDiv.remove();
+                } else {
+                    letterDiv.style.opacity = '0.1';
+                    letterDiv.style.pointerEvents = 'none';
+                }
+            };
+            letterDiv.onmousedown = handleHit;
+            letterDiv.ontouchstart = (e) => { e.preventDefault(); handleHit(e); };
+            anim.onfinish = () => letterDiv.remove();
+        }
+
+        function createParticles(x, y) {
+            for (let i = 0; i < 6; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle'; p.innerText = '🧡';
+                p.style.left = x + 'px'; p.style.top = y + 'px';
+                p.style.setProperty('--x', (Math.random() - 0.5) * 150 + 'px');
+                p.style.setProperty('--y', (Math.random() - 0.5) * 150 + 'px');
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 700);
+            }
+        }
+
+        function collectLetter(char, index) {
+            const slot = document.getElementById(`slot-${index}`);
+            if(slot) { slot.innerText = char; slot.classList.add('filled'); }
+            currentIndex++;
+            if (targetText[currentIndex] === ' ') currentIndex++;
+            if (currentIndex >= targetText.length) gameWin();
+        }
+
+        function gameWin() {
+            stopGame();
+            document.getElementById('win-word').innerText = targetText;
+            document.getElementById('explanation-text').innerText = wordData[targetText];
+            setTimeout(() => { document.getElementById('success-overlay').style.display = 'flex'; }, 500);
+        }
+
+        function gameFail() {
+            stopGame();
+            setTimeout(() => { document.getElementById('fail-overlay').style.display = 'flex'; }, 500);
+        }
+
+        function stopGame() {
+            gameActive = false;
+            clearInterval(spawnInterval);
+            clearInterval(timerInterval);
+        }
+    </script>
+</body>
+</html>

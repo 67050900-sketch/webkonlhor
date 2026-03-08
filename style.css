@@ -1,0 +1,207 @@
+:root {
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --accent: #ff6b00; /* สีส้ม KMITL ที่คุณตั้งไว้ */
+    --dim-text: #666;
+    --border: rgba(0, 0, 0, 0.08);
+    --placeholder-bg: #f4f4f4;
+}
+
+/* --- ทุกอย่างคงเดิมตามโค้ดที่คุณส่งมา --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: var(--bg); color: var(--text); font-family: 'Inter', 'Prompt', sans-serif; line-height: 1.6; overflow-x: hidden; }
+#starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: #ffffff; }
+
+/* --- LOGO & NAV (ใช้สีส้มที่ span และ hover) --- */
+.logo { font-family: 'Tenor Sans', sans-serif; font-size: 1.4rem; font-weight: bold; letter-spacing: 3px; color: #000; }
+.logo span { color: var(--accent); } /* ส้มที่คำว่า KMITL */
+
+nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, 0.85); }
+.nav-links { display: flex; list-style: none; gap: 2.5rem; }
+.nav-links a { text-decoration: none; color: var(--dim-text); font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s; }
+
+/* เพิ่มสีส้มตอน Hover เมนู */
+.nav-links a:hover, .nav-links a.active { color: var(--accent); } 
+
+/* ปุ่ม Admission ปรับให้ขอบเป็นสีส้มเพื่อความเด่น */
+.nav-btn { border: 1.5px solid var(--accent); padding: 0.5rem 1.2rem; border-radius: 50px; color: var(--accent) !important; text-decoration: none; transition: 0.3s; }
+.nav-btn:hover { background: var(--accent); color: #fff !important; }
+
+/* --- HERO --- */
+.hero { height: 100vh; display: flex; align-items: center; padding: 0 10%; }
+.label { color: var(--accent); font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 1.5rem; display: block; font-weight: 600; }
+h1 { font-family: 'Tenor Sans', sans-serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; color: #000; }
+
+/* ส่วนที่เป็นตัวหนังสือโปร่งแสง ให้ขอบเป็นสีส้มถ้าต้องการเน้น หรือปล่อยเป็นสีดำตามเดิมก็ได้ */
+h1 span { display: block; margin-top: 10px; -webkit-text-stroke: 1.5px #000; -webkit-text-fill-color: transparent; }
+
+/* --- IMAGE PLACEHOLDERS (คงเดิม) --- */
+.image-placeholder {
+    background-color: var(--placeholder-bg);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    color: #bbb;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+.image-placeholder img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.image-placeholder:hover img { transform: scale(1.05); }
+
+.main-img {
+    aspect-ratio: 4/3;
+    width: 100%;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+}
+
+.card-image-box {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--placeholder-bg);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 0.7rem;
+    overflow: hidden;
+}
+
+/* --- GRID & STATS (ใช้สีส้มที่ตัวเลข) --- */
+.container { padding: 8rem 10%; }
+.section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+.align-center { align-items: center; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 8rem 0; text-align: center; }
+.stat-num { font-size: 3.5rem; font-family: 'Tenor Sans', sans-serif; color: var(--accent); }
+
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-top: 6rem; }
+.info-card { background: #fff; padding: 2rem; border: 1px solid var(--border); transition: 0.5s; }
+
+/* ขอบการ์ดเปลี่ยนเป็นสีส้มเมื่อ Hover */
+.info-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+
+/* --- FOOTER & REVEAL (คงเดิม) --- */
+footer { padding: 5rem 10%; border-top: 1px solid var(--border); background-color: #373939; color: #fff; }
+.footer-content { display: flex; justify-content: space-between; align-items: center; }
+.reveal { opacity: 0; transform: translateY(30px); transition: 1.2s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+/* --- สำหรับ Logo ใน Header (ด้านบน) --- */
+nav .logo {
+    color: #000000; /* เปลี่ยนสีคำว่า IoTE ด้านบนตรงนี้ (ตัวอย่างนี้คือสีดำ) */
+}
+
+/* --- สำหรับ Logo ใน Footer (ด้านล่าง) --- */
+footer .logo {
+    color: #ffffff; /* เปลี่ยนสีคำว่า IoTE ด้านล่างตรงนี้ (ตัวอย่างนี้คือสีขาว) */
+}
+
+/* จัดกลุ่มไอคอนให้อยู่ในแนวนอนและมีช่องว่างห่างกันพอดี */
+.social-links {
+    display: flex;
+    gap: 5rem; /* ระยะห่างระหว่างไอคอน ปรับลดเพิ่มได้ตามชอบ */
+    align-items: center;
+}
+
+/* กำหนดขนาดของไอคอน */
+.social-icon {
+    width: 100px; /* ปรับขนาดความกว้างของไอคอน */
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ทำให้รูปไอคอนสว่างขึ้นหรือขยับนิดๆ เวลานำเมาส์ไปชี้ */
+.social-links a:hover .social-icon {
+    transform: scale(1.1); /* ขยายใหญ่ขึ้น 10% */
+    opacity: 0.8;
+}
+
+/* --- 1. ปรับสีพื้นหลังหลักให้เป็นสีเทาอมขาวนิดๆ ดูผู้ดีและสบายตา --- */
+body { 
+    background: linear-gradient(135deg, #ffffff 0%, #f4f5f7 100%); 
+    color: var(--text); 
+    font-family: 'Inter', 'Prompt', sans-serif; 
+    line-height: 1.6; 
+    overflow-x: hidden; 
+}
+
+/* ลบโค้ด #starfield เดิมทิ้งไปได้เลยครับ */
+
+/* --- 2. สร้างออร่าแสงสีส้ม KMITL แบบจางมากๆ (ไม่กวนสายตา) --- */
+.glow-orb {
+    position: fixed;
+    top: -20vh;
+    right: -10vw;
+    width: 70vw;
+    height: 70vw;
+    /* แสงสีส้มจางๆ ความเข้มแค่ 4% */
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    z-index: -2;
+    pointer-events: none;
+    animation: pulseAura 20s ease-in-out infinite alternate;
+}
+
+/* --- 3. เพิ่มแสงอีกวงซ้ายล่าง เพื่อให้เว็บดูมีมิติสมดุล --- */
+.glow-orb::after {
+    content: '';
+    position: fixed;
+    bottom: -20vh;
+    left: -10vw;
+    width: 60vw;
+    height: 60vw;
+    /* แสงสีเทาจางๆ */
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    animation: pulseAura 15s ease-in-out infinite alternate-reverse;
+}
+
+/* --- 4. แอนิเมชันให้แสงขยับช้าๆ (ช้าจนแทบไม่สังเกตเห็น แต่ดูมีชีวิต) --- */
+@keyframes pulseAura {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-20px, 30px); }
+}
+/* สไตล์สำหรับ Magic Portal ในเมนู */
+.magic-portal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+.magic-portal:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    color: var(--accent);
+}
+
+body { 
+    /* พื้นหลังสีขาวอมเทานิดๆ ให้ดูหรูหรา */
+    background-color: #fcfcfc; 
+    color: var(--text); 
+    font-family: 'Inter', 'Prompt', sans-serif; 
+    line-height: 1.6; 
+    overflow-x: hidden; 
+}
+
+#starfield { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: -2; 
+    /* ทำให้แอนิเมชันดูจางลง ไม่กวนตัวหนังสือ */
+    opacity: 0.8; 
+    pointer-events: none;
+}
