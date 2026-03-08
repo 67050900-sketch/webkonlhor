@@ -205,3 +205,100 @@ body {
     opacity: 0.8; 
     pointer-events: none;
 }
+/* --- ส่วนที่ 1: ค่าพื้นฐานสำหรับทุกหน้าจอ (เน้น Desktop เป็นหลัก) --- */
+:root {
+    --bg: #fcfcfc;
+    --text: #1a1a1a;
+    --accent: #ff6b00;
+    --dim-text: #666;
+    --border: rgba(0, 0, 0, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    background-color: var(--bg); 
+    color: var(--text); 
+    font-family: 'Inter', 'Prompt', sans-serif; 
+    overflow-x: hidden; 
+}
+
+/* Navigation - ปรับให้ยืดหยุ่น */
+nav { 
+    position: fixed; top: 0; width: 100%; z-index: 1000; 
+    padding: 1rem 5%; 
+    display: flex; justify-content: space-between; align-items: center; 
+    backdrop-filter: blur(15px); background: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--dim-text); font-size: 0.8rem; letter-spacing: 1px; }
+
+/* Grid System - จุดสำคัญที่ทำให้คอมไม่เพี้ยน */
+.section-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* คอมพิวเตอร์แบ่ง 2 คอลัมน์ */
+    gap: 4rem; 
+    align-items: center;
+}
+
+.grid-3 { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* คอมพิวเตอร์แบ่ง 3 คอลัมน์ */
+    gap: 2rem; 
+}
+
+/* --- ส่วนที่ 2: ปรับแต่งเมื่อเปิดในมือถือ (หน้าจอเล็กกว่า 768px) --- */
+@media (max-width: 768px) {
+    nav {
+        padding: 1rem 3%;
+    }
+
+    .nav-links {
+        display: none; /* ซ่อนเมนูตัวหนังสือในมือถือเพื่อไม่ให้เบียดกัน */
+    }
+
+    .hero {
+        padding: 0 5%;
+        text-align: center;
+        height: auto;
+        padding-top: 120px;
+        padding-bottom: 50px;
+    }
+
+    h1 {
+        font-size: 2.5rem; /* ลดขนาดตัวอักษรหัวข้อ */
+    }
+
+    /* เปลี่ยนจาก 2 คอลัมน์ เป็น 1 คอลัมน์ เพื่อให้รูปไม่บีบจนเล็ก */
+    .section-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* เปลี่ยนจาก 3 คอลัมน์ เป็น 1 คอลัมน์ */
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 4rem 5%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr; /* สถิติเรียงแถวเดี่ยว */
+        gap: 2rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+        gap: 2rem;
+    }
+}
